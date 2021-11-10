@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 
 // Your api key storage.
 import 'keys.dart';
@@ -79,6 +79,14 @@ class _HomePageState extends State<HomePage> {
                           initialPosition: HomePage.kInitialPosition,
                           useCurrentLocation: true,
                           selectInitialPosition: true,
+                          onGeocodingSearchFailed: (e) {
+                            print('-----------gsf--------');
+                            print(e);
+                          },
+                          onAutoCompleteFailed: (e) {
+                            print('--------------acf--------');
+                            print(e);
+                          },
 
                           //usePlaceDetailSearch: true,
                           onPlacePicked: (result) {
@@ -127,7 +135,9 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
-              selectedPlace == null ? Container() : Text(selectedPlace.formattedAddress ?? ""),
+              selectedPlace == null
+                  ? Container()
+                  : Text(selectedPlace.formattedAddress ?? ""),
             ],
           ),
         ));
